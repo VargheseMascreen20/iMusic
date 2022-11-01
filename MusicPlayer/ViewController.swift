@@ -82,23 +82,29 @@ class ViewController: UIViewController, UITableViewDelegate,UITableViewDataSourc
 
         return cell
     }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 150.0
+    }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         table.deselectRow(at: indexPath, animated: true)
         let position = indexPath.row
-        guard let vc = storyboard?.instantiateViewController(withIdentifier: "player") else{
+        guard let vc = storyboard?.instantiateViewController(withIdentifier: "player") as? PlayerViewController else{
             return
         }
+        vc.songs = songs
+        vc.position = position
         present(vc, animated: true)
         
     }
-    struct Song{
-        let name:String
-        let albumName:String
-        let artistName:String
-        let imageName:String
-        let trackName:String
-        
-    }
+    
+}
+struct Song{
+    let name:String
+    let albumName:String
+    let artistName:String
+    let imageName:String
+    let trackName:String
+    
 }
 
 

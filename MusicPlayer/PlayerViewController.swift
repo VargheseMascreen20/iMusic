@@ -72,7 +72,7 @@ class PlayerViewController: UIViewController {
             print("Error Occured")
             
         }
-        albumImageView.frame = CGRect(x: 20, y: 10, width: holder.frame.size.width-50, height: holder.frame.size.height-400)
+        albumImageView.frame = CGRect(x:30, y: 30, width: holder.frame.size.width-60, height: holder.frame.size.width-20)
         songNameLabel.frame = CGRect(x: 10, y: albumImageView.frame.size.height+10, width: holder.frame.size.width-20, height: 70)
         artistNameLabel.frame = CGRect(x: 10, y: albumImageView.frame.size.height+10+70, width: holder.frame.size.width-20, height: 70)
         albumNameLabel.frame = CGRect(x: 10, y: albumImageView.frame.size.height+10+140, width: holder.frame.size.width-20, height: 70)
@@ -100,7 +100,7 @@ class PlayerViewController: UIViewController {
         let nextButton = UIButton()
         let backButton = UIButton()
         
-        let yPosition = albumNameLabel.frame.origin.y + 70 + 20
+        let yPosition = albumNameLabel.frame.origin.y + 70 + 30
         let size:CGFloat = 70
         
         playPauseButton.frame = CGRect(x: (holder.frame.size.width - size)/2.0, y: yPosition, width: size, height: size)
@@ -129,24 +129,43 @@ class PlayerViewController: UIViewController {
         if player?.isPlaying == true{
             player?.pause()
             playPauseButton.setBackgroundImage(UIImage(systemName: "play.fill"), for: .normal)
+            UIView.animate(withDuration: 0.2, animations: {
+                self.albumImageView.frame = CGRect(x: 25, y: 30, width: self.holder.frame.size.width-60, height: self.holder.frame.size.width-60)
+            })
+            
+           
+            
         }else{
             player?.play()
             playPauseButton.setBackgroundImage(UIImage(systemName: "pause.fill"), for: .normal)
+            UIView.animate(withDuration: 0.2, animations: {
+                self.albumImageView.frame = CGRect(x:30, y: 30, width: self.holder.frame.size.width-60, height: self.holder.frame.size.width-20)
+            })
         }
     }
     @objc func didTapNextButton(){
         if position < (songs.count - 1) {
             position = position + 1
+            
             player?.stop()
             for subview in holder.subviews {
                 subview.removeFromSuperview()
             }
             configure()
         }
+        else{
+            position = 0
+            configure()
+        }
+       
+        
     }
     @objc func didTapBackButton(){
         if position < (songs.count - 1) {
             position = position - 1
+            if(position < 0){
+                position = 0
+            }
             player?.stop()
             for subview in holder.subviews {
                 subview.removeFromSuperview()

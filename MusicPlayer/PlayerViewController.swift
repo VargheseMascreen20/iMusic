@@ -12,6 +12,9 @@ class PlayerViewController: UIViewController {
     public var position : Int = 0
     public var songs: [Song] = []
     @IBOutlet var holder: UIView!
+    var urlString: String?
+    
+    var timeSeeker:UISlider?
     
     var player:AVAudioPlayer?
     private let albumImageView: UIImageView = {
@@ -43,15 +46,21 @@ class PlayerViewController: UIViewController {
         
         
     }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         if holder.subviews.count == 0{
             configure()
         }
     }
+    
+    @IBAction func seek(_ sender: UISlider) {
+        player?.currentTime = TimeInterval(sender.value)
+    }
+    
     func configure(){
         let song = songs[position]
-        let urlString = Bundle.main.path(forResource: song.trackName, ofType: "mp3")
+        urlString = Bundle.main.path(forResource: song.trackName, ofType: "mp3")
         
         do{
             try AVAudioSession.sharedInstance().setMode(.default)
@@ -62,6 +71,8 @@ class PlayerViewController: UIViewController {
             }
             
             player = try AVAudioPlayer(contentsOf: URL(string: urlString)!)
+            
+        
             
             guard let player = player else {
                 return
@@ -96,6 +107,21 @@ class PlayerViewController: UIViewController {
         slider.addTarget(self, action: #selector(didslideslider(_:)), for: .valueChanged)
         holder.addSubview(slider)
         
+        
+        
+
+        timeSeeker = UISlider(frame:CGRect(x: 20,
+                                           y: holder.frame.size.height - 100,
+                                           width: holder.frame.size.width - 40,
+                                           height: 50))
+        timeSeeker?.value = 0.5
+        timeSeeker?.maximumValue = song.duration
+        timeSeeker?.addTarget(self, action: #selector(didSlideTimeSeeker(_:)), for: .valueChanged)
+        holder.addSubview(timeSeeker!)
+        
+        
+        Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateSlider), userInfo: nil, repeats: true)
+
         
         let nextButton = UIButton()
         let backButton = UIButton()
@@ -186,5 +212,14 @@ class PlayerViewController: UIViewController {
             player.stop()
         }
     }
+    @objc func updateSlider() {
+        timeSeeker?.value = Float(player!.currentTime)
+    }
     
+    
+    @objc func didSlideTimeSeeker(_ timeSeeker: UISlider){
+        let value = timeSeeker.value
+        player?.currentTime = TimeInterval(timeSeeker.value)
+    }
+
 }

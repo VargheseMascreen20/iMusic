@@ -23,47 +23,62 @@ class ViewController: UIViewController, UITableViewDelegate,UITableViewDataSourc
                           albumName: " Gangsta's Paradise",
                           artistName: " Coolio, Kylian Mash",
                           imageName: "cover1",
-                          trackName: "song1"))
+                          trackName: "song1",
+                          duration: 240
+                         ))
         songs.append(Song(name: "What a Wonderful World",
                           albumName: "What a Wonderful World",
                           artistName: "Louis Armstrong",
                           imageName: "cover2",
-                          trackName: "song2"))
+                          trackName: "song2",
+                          duration: 135
+                         ))
         songs.append(Song(name: "Hey there Delilah",
                           albumName: "All That We Needed",
                           artistName: "Plain White T's",
                           imageName: "cover3",
-                          trackName: "song3"))
+                          trackName: "song3"
+                         ,duration: 232))
         songs.append(Song(name: "Gangsta's Paradise",
                           albumName: " Gangsta's Paradise",
                           artistName: " Coolio, Kylian Mash",
                           imageName: "cover1",
-                          trackName: "song1"))
+                          trackName: "song1",
+                          duration: 240
+))
         songs.append(Song(name: "What a Wonderful World",
                           albumName: "What a Wonderful World",
                           artistName: "Louis Armstrong",
                           imageName: "cover2",
-                          trackName: "song2"))
+                          trackName: "song2",
+                          duration: 135
+))
         songs.append(Song(name: "Hey there Delilah",
                           albumName: "All That We Needed",
                           artistName: "Plain White T's",
                           imageName: "cover3",
-                          trackName: "song3"))
+                          trackName: "song3",
+                          duration: 232))
         songs.append(Song(name: "Gangsta's Paradise",
                           albumName: " Gangsta's Paradise",
                           artistName: " Coolio, Kylian Mash",
                           imageName: "cover1",
-                          trackName: "song1"))
+                          trackName: "song1",
+                          duration: 240
+))
         songs.append(Song(name: "What a Wonderful World",
                           albumName: "What a Wonderful World",
                           artistName: "Louis Armstrong",
                           imageName: "cover2",
-                          trackName: "song2"))
+                          trackName: "song2",
+                          duration: 135
+))
         songs.append(Song(name: "Hey there Delilah",
                           albumName: "All That We Needed",
                           artistName: "Plain White T's",
                           imageName: "cover3",
-                          trackName: "song3"))
+                          trackName: "song3",
+                          duration: 232))
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -104,6 +119,7 @@ struct Song{
     let artistName:String
     let imageName:String
     let trackName:String
+    let duration:Float
     
 }
 
